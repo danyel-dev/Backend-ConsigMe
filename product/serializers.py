@@ -8,7 +8,7 @@ class commentSerializer(serializers.HyperlinkedModelSerializer):
     full_name = serializers.SerializerMethodField()
     initial_letters = serializers.SerializerMethodField()
     created_at = serializers.DateTimeField(format='%d/%m/%Y %H:%M', read_only=True)
-    
+     
     
     class Meta:
         model = comment

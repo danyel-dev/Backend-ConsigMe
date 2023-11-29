@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User, Group
-from product.models import bag
 from rest_framework import serializers
 
 
