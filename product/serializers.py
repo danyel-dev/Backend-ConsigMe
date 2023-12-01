@@ -7,7 +7,7 @@ from setup.serializers import UserSerializer
 class commentSerializer(serializers.HyperlinkedModelSerializer):
     full_name = serializers.SerializerMethodField()
     initial_letters = serializers.SerializerMethodField()
-    created_at = serializers.DateTimeField(format='%d/%m/%Y %H:%M', read_only=True)
+    created_at = serializers.SerializerMethodField()
      
     
     class Meta:
@@ -27,6 +27,10 @@ class commentSerializer(serializers.HyperlinkedModelSerializer):
     
     def get_initial_letters(self, obj):
         return f'{obj.user.first_name[0]}{obj.user.last_name[0]}' 
+    
+     
+    def get_created_at(self, obj):
+        return f'{obj.created_at.strftime("%d/%m/%Y")} ás {obj.created_at.strftime("%H:%M")}'
     
         
 class productSerializer(serializers.HyperlinkedModelSerializer):
