@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, upload_to="media_root/")
     size = models.CharField(max_length=20)
     value = models.DecimalField(max_digits=5, decimal_places=2)
     quantity = models.IntegerField()

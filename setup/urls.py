@@ -3,7 +3,7 @@ from django.urls import include, path
 from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, userLogadoViewset
 from rest_framework.authtoken import views
-from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, commentViewset
+from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, commentViewset, bagProductViewset
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -16,6 +16,7 @@ router.register(r'messages', messageViewSet)
 router.register(r'userLogado', userLogadoViewset, basename='userlogado')
 router.register(r'bag', bagViewSet, basename='bag')
 router.register(r'comments', commentViewset)
+router.register(r'bagProdut', bagProductViewset)
 
 
 urlpatterns = [
