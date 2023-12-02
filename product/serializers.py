@@ -40,16 +40,30 @@ class productSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = product
         fields = ['id', 'url', 'comment_set', 'user', 'image', 'description', 'name', 'value', 'size', 'quantity']
+    
+
+class BagProductSerializer(serializers.HyperlinkedModelSerializer):
+    image = serializers.ImageField()
+    user = serializers.SerializerMethodField()
+    
+     
+    class Meta:
+        model = product
+        fields = ['user', 'image', 'name', 'value', 'size', 'quantity']
 
 
-class bagSerializer(serializers.HyperlinkedModelSerializer):
-    # products = productSerializer(many=True)
+    def get_user(self, obj):
+        return f'{obj.user.first_name} {obj.user.last_name}'
+
+
+class bagSerializer(serializers.HyperlinkedModelSerializer):    
+    products = BagProductSerializer(many=True)
     
     class Meta:
         model = bag
         fields = ['id', 'url', 'user', 'products']
-
-
+    
+    
 class messageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = message

@@ -3,11 +3,15 @@ from rest_framework import serializers
 
 
 class userLogadoSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
+    fullname = serializers.SerializerMethodField()
     
     class Meta:
         model = User
-        fields = ['url', 'id', 'user']
+        fields = ['url', 'id', 'fullname']
+
+
+    def get_fullname(self, obj):
+        return f'{obj.first_name} {obj.last_name}'
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
