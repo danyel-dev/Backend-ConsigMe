@@ -11,12 +11,11 @@ from django.conf.urls.static import static
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
-router.register(r'products', productViewSet)
 router.register(r'messages', messageViewSet)
 router.register(r'userLogado', userLogadoViewset, basename='userlogado')
 router.register(r'bag', bagViewSet, basename='bag')
 router.register(r'comments', commentViewset)
-router.register(r'bagProdut', bagProductViewset)
+router.register(r'products', productViewSet)
 
 
 urlpatterns = [
