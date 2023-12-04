@@ -65,31 +65,20 @@ class bagSerializer(serializers.HyperlinkedModelSerializer):
     
     
     def update(self, instance, validated_data):
-        new_products_data = validated_data.get('products', [])
+        new_products_data = validated_data.pop('products', [])
 
-        # Adicione novos produtos à lista existente
+        # Remova todos os produtos existentes associados à instância da Bag
+        instance.products.all().delete()
+
+        # Adicione novos produtos à lista
         for new_product_data in new_products_data:
-            new_product_data.pop('id', None)  # Remova o ID, pois é um novo produto
+            # Remova o ID, pois é um novo produto
+            new_product_data.pop('id', None)
+            
+            # Crie um novo produto associado à instância da Bag
             instance.products.create(**new_product_data)
-        
+
         return instance
-        
-        # new_product = { 
-        #     "image": "aaaaaaaa",
-        #     "user": "http://127.0.0.1:8000/users/48/",
-        #     "fullname": "Carlos daniel Pinheiro",
-        #     "value": 34.50,
-        #     "size": "M",
-        #     "name": "Camisa Regata",
-        #     "quantity": 3
-        # }
-        
-        # instance.id = 22
-        # instance.url = "http://127.0.0.1:8000/users/48/"
-        # instance.products.set([])
-        # instance.save()
-        
-        # return instance
     
     
 class messageSerializer(serializers.HyperlinkedModelSerializer):
