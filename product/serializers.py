@@ -36,49 +36,26 @@ class commentSerializer(serializers.HyperlinkedModelSerializer):
 class productSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer()
     comment_set = commentSerializer(many=True)
-    
-    class Meta:
-        model = product
-        fields = ['id', 'url', 'comment_set', 'user', 'image', 'description', 'name', 'value', 'size', 'quantity']
-    
-
-class BagProductSerializer(serializers.HyperlinkedModelSerializer):
-    image = serializers.CharField()
     fullname = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
     
-     
     class Meta:
         model = product
-        fields = ['image', 'user', 'fullname', 'value', 'size', 'name', 'quantity']
-
-
+        fields = ['id', 'url', 'fullname', 'comment_set', 'user', 'image', 'description', 'name', 'value', 'size', 'quantity']
+    
+    
     def get_fullname(self, obj):
         return f'{obj.user.first_name} {obj.user.last_name}'
 
 
-class bagSerializer(serializers.HyperlinkedModelSerializer):    
-    products = BagProductSerializer(many=True)
+    def get_name(self, obj):
+        return obj.name.title()
     
+    
+class bagSerializer(serializers.HyperlinkedModelSerializer):    
     class Meta:
         model = bag
         fields = ['id', 'url', 'user', 'products']
-    
-    
-    def update(self, instance, validated_data):
-        new_products_data = validated_data.pop('products', [])
-
-        # Remova todos os produtos existentes associados à instância da Bag
-        instance.products.all().delete()
-
-        # Adicione novos produtos à lista
-        for new_product_data in new_products_data:
-            # Remova o ID, pois é um novo produto
-            new_product_data.pop('id', None)
-            
-            # Crie um novo produto associado à instância da Bag
-            instance.products.create(**new_product_data)
-
-        return instance
     
     
 class messageSerializer(serializers.HyperlinkedModelSerializer):
