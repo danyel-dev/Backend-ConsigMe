@@ -1,14 +1,9 @@
 from rest_framework import viewsets, generics
 from .models import product, message, bag, comment, product
-from .serializers import productSerializer, messageSerializer, bagSerializer, sacoleiraProductsSerializer, searchSacoleirasSerializer, commentSerializer, BagProductSerializer
+from .serializers import productSerializer, messageSerializer, bagSerializer, sacoleiraProductsSerializer, searchSacoleirasSerializer, commentSerializer
 from rest_framework import permissions, authentication
 from django.contrib.auth.models import User
 from rest_framework.parsers import MultiPartParser, FormParser
-
-
-class bagProductViewset(viewsets.ModelViewSet):
-    queryset = product.objects.all()
-    serializer_class = BagProductSerializer
 
 
 class productViewSet(viewsets.ModelViewSet):

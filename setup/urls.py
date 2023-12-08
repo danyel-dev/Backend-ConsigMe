@@ -3,7 +3,7 @@ from django.urls import include, path
 from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, userLogadoViewset
 from rest_framework.authtoken import views
-from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, commentViewset, bagProductViewset
+from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, commentViewset
 from django.conf import settings
 from django.conf.urls.static import static
 
