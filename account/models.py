@@ -9,7 +9,7 @@ class profile(models.Model):
   professional_email = models.EmailField()
   phone_number = models.CharField(max_length=12)
   cpf = models.CharField(max_length=11)
-  birth_date = models.DateField()
+  birth_date = models.DateField(blank=True, null=True)
   bio = models.TextField(blank=True, null=True)
   image = models.ImageField(blank=True, null=True, upload_to=f'profileImages/{datetime.now().strftime("%d_%m_%Y")}')
   cep = models.CharField(max_length=8)
@@ -27,4 +27,3 @@ class profile(models.Model):
  
   def __str__(self):
       return self.store_name
-  
