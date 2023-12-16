@@ -23,7 +23,7 @@ class profile(models.Model):
   is_reseller = models.BooleanField(default=False, null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
- 
- 
+
+
   def __str__(self):
       return self.store_name
