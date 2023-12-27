@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import product, message, bag, comment
 from django.contrib.auth.models import User
 from setup.serializers import UserSerializer
+from drf_extra_fields.fields import Base64ImageField
 
 
 class commentSerializer(serializers.HyperlinkedModelSerializer):
@@ -32,24 +33,20 @@ class commentSerializer(serializers.HyperlinkedModelSerializer):
     def get_created_at(self, obj):
         return f'{obj.created_at.strftime("%d/%m/%Y")} ás {obj.created_at.strftime("%H:%M")}'
     
-        
+
 class productSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer()
-    comment_set = commentSerializer(many=True)
+    # user = UserSerializer()
+    comment_set = commentSerializer(many=True, read_only=True)
     fullname = serializers.SerializerMethodField()
-    name = serializers.SerializerMethodField()
+    image = Base64ImageField()
     
     class Meta:
         model = product
         fields = ['id', 'url', 'fullname', 'comment_set', 'user', 'image', 'description', 'name', 'value', 'size', 'quantity']
-    
+        
     
     def get_fullname(self, obj):
         return f'{obj.user.first_name} {obj.user.last_name}'
-
-
-    def get_name(self, obj):
-        return obj.name.title()
     
     
 class bagSerializer(serializers.HyperlinkedModelSerializer):    

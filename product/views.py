@@ -9,7 +9,10 @@ from rest_framework.parsers import MultiPartParser, FormParser
 class productViewSet(viewsets.ModelViewSet):
     queryset = product.objects.all()
     serializer_class = productSerializer
-
+    parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
 
 class messageViewSet(viewsets.ModelViewSet):
     queryset = message.objects.all()
