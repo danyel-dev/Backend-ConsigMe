@@ -8,7 +8,7 @@ class userLogadoSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = User
-        fields = ['url', 'id', 'fullname']
+        fields = ['url', 'id', 'fullname', 'profile']
 
 
     def get_fullname(self, obj):
@@ -21,9 +21,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'id', 'first_name', 'last_name', 'username', 'email', 'password', 'confirm_password']
+        
         extra_kwargs = {
             'email': {'required': True},
-            'password': {'write_only': True}
+            'password': {'write_only': True},
         }
     
     

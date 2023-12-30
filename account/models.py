@@ -7,7 +7,7 @@ class profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.PROTECT)
   store_name = models.CharField(max_length=50)
   professional_email = models.EmailField()
-  phone_number = models.CharField(max_length=12)
+  phone_number = models.CharField(max_length=16)
   cpf = models.CharField(max_length=11)
   birth_date = models.DateField(blank=True, null=True)
   bio = models.TextField(blank=True, null=True)
