@@ -3,20 +3,11 @@ from .serializers import profileSerializer, sacoleirasSerializer
 from rest_framework import viewsets, permissions, authentication, filters, generics
 
 
-class profileDetail(generics.RetrieveAPIView):
+class profile(generics.ListAPIView):
     serializer_class = profileSerializer
-    queryset = profile.objects.all()
-
-
-class profileViewset(viewsets.ModelViewSet):
-    serializer_class = profileSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
-
-    
+        
     def get_queryset(self):
-        user = self.request.user
-        return profile.objects.filter(user=user) 
+        return profile.objects.filter(user_id=self.kwargs['id']) 
 
 
 class sacoleirasViewset(viewsets.ModelViewSet):
