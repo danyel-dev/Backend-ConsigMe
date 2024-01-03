@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from account.models import profile
 
 
 class product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sacoleira = models.ForeignKey(profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     image = models.ImageField(blank=True, upload_to="media_root/")
     size = models.CharField(max_length=20)

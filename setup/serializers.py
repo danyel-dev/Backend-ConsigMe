@@ -5,14 +5,19 @@ from product.models import bag
 
 class userLogadoSerializer(serializers.HyperlinkedModelSerializer):
     fullname = serializers.SerializerMethodField()
+    sacoleira = serializers.SerializerMethodField()
+    
     
     class Meta:
         model = User
-        fields = ['url', 'id', 'fullname', 'profile']
+        fields = ['url', 'sacoleira', 'id', 'fullname', 'profile']
 
 
     def get_fullname(self, obj):
         return f'{obj.first_name} {obj.last_name}'
+    
+    def get_sacoleira(self, obj):
+        return f'{obj.profile.id}'
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

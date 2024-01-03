@@ -42,11 +42,11 @@ class productSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = product
-        fields = ['id', 'url', 'fullname', 'comment_set', 'user', 'image', 'description', 'name', 'value', 'size', 'quantity']
+        fields = ['id', 'url', 'fullname', 'comment_set', 'sacoleira', 'image', 'description', 'name', 'value', 'size', 'quantity']
         
     
     def get_fullname(self, obj):
-        return f'{obj.user.first_name} {obj.user.last_name}'
+        return f'ricardo'
     
     
 class bagSerializer(serializers.HyperlinkedModelSerializer):    
@@ -68,11 +68,11 @@ class searchSacoleirasSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class sacoleiraProductsSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer()
+    # user = UserSerializer()
     
     class Meta:
         model = product
-        fields = ['id', 'user', 'image', 'description', 'name', 'value', 'size', 'quantity']
+        fields = ['sacoleira', 'image', 'description', 'name', 'value', 'size', 'quantity']
 
 
 class productDetailSerializer(serializers.HyperlinkedModelSerializer):

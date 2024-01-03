@@ -33,7 +33,7 @@ class sacoleiraProducts(generics.ListAPIView):
     serializer_class = sacoleiraProductsSerializer
     
     def get_queryset(self):
-        return product.objects.filter(user_id=self.kwargs['id'])
+        return product.objects.filter(sacoleira_id=self.kwargs["id"])
 
 
 class commentViewset(viewsets.ModelViewSet):

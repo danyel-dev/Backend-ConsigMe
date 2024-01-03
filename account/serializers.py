@@ -8,7 +8,7 @@ class profileSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = profile
-        fields = ['id', 'store_name', 'professional_email', 'cpf', 'birth_date', 'image', 'name', 'address', 'bio', 'phone_number']
+        fields = ['id', 'url', 'store_name', 'professional_email', 'cpf', 'birth_date', 'image', 'name', 'address', 'bio', 'phone_number']
 
     
     def get_name(self, obj):
