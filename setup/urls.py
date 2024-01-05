@@ -3,7 +3,7 @@ from django.urls import include, path
 from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, userLogadoViewset
 from rest_framework.authtoken import views
-from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, commentViewset
+from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, commentViewset, productDetail
 from account.views import profileViewset, sacoleirasViewset, profileDetail
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,6 +24,7 @@ router.register(r'sacoleiras', sacoleirasViewset, basename='sacoleiras')
 urlpatterns = [
     path('', include(router.urls)),
     path('sacoleiras/<int:id>/products/', sacoleiraProducts.as_view()),
+    path('sacoleiras/<int:id>/products/<int:pk>', productDetail.as_view()),
     path('profileDetail/<int:pk>/', profileDetail.as_view()),
     path('api-token-auth/', views.obtain_auth_token, name='api-tokn-auth'),
     path('admin/', admin.site.urls),

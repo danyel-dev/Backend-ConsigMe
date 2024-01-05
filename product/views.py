@@ -1,6 +1,6 @@
 from rest_framework import viewsets, generics
 from .models import product, message, bag, comment, product
-from .serializers import productSerializer, messageSerializer, bagSerializer, sacoleiraProductsSerializer, searchSacoleirasSerializer, commentSerializer
+from .serializers import productSerializer, productDetailSerializer, messageSerializer, bagSerializer, sacoleiraProductsSerializer, searchSacoleirasSerializer, commentSerializer
 from rest_framework import permissions, authentication, filters
 from django.contrib.auth.models import User
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -32,10 +32,17 @@ class bagViewSet(viewsets.ModelViewSet):
 class sacoleiraProducts(generics.ListAPIView):
     serializer_class = sacoleiraProductsSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'size', 'description']
+    search_fields = ['name', 'size']
     
     def get_queryset(self):
         return product.objects.filter(sacoleira_id=self.kwargs["id"])
+
+
+class productDetail(generics.RetrieveAPIView):
+    serializer_class = productDetailSerializer
+    
+    def get_queryset(self):
+        return product.objects.filter(id=self.kwargs['pk'])
 
 
 class commentViewset(viewsets.ModelViewSet):

@@ -70,12 +70,10 @@ class searchSacoleirasSerializer(serializers.HyperlinkedModelSerializer):
 class sacoleiraProductsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = product
-        fields = ['sacoleira', 'image', 'description', 'name', 'value', 'size', 'quantity']
+        fields = ['id', 'sacoleira', 'image', 'description', 'name', 'value', 'size', 'quantity']
     
 
 class productDetailSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer()
-        
     class Meta:
         model = product
-        fields = ['id', 'image', 'description', 'name', 'value', 'size', 'quantity', 'user']
+        fields = ['id', 'image', 'description', 'name', 'value', 'size', 'quantity']
