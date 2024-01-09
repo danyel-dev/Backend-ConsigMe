@@ -18,11 +18,11 @@ class product(models.Model):
     def __str__(self):
         return self.name
 
-
-class comment(models.Model):
+    
+class ProductNote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(product, on_delete=models.CASCADE)
-    message = models.TextField()
+    note = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
