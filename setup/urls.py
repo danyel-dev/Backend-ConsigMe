@@ -20,7 +20,6 @@ router.register(r'productNote', productNoteViewSet)
 router.register(r'profile', profileViewset, basename='profile')
 router.register(r'sacoleiras', sacoleirasViewset, basename='sacoleiras')
 
-
 urlpatterns = [
     path('', include(router.urls)),
     path('sacoleiras/<int:id>/products/', sacoleiraProducts.as_view()),

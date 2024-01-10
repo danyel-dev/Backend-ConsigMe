@@ -13,7 +13,7 @@ class userLogadoViewset(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return User.objects.filter(id=user.id)    
-
+    
 
 class UserViewSet(viewsets.ModelViewSet):
     """

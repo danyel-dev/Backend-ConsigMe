@@ -5,8 +5,13 @@ from setup.serializers import UserSerializer
 from drf_extra_fields.fields import Base64ImageField
 
 
+class productNoteSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ProductNote
+        fields = ['id', 'url', 'user', 'product', 'note']
+
+
 class productSerializer(serializers.HyperlinkedModelSerializer):
-    # user = UserSerializer()
     fullname = serializers.SerializerMethodField()
     image = Base64ImageField()
     
@@ -17,13 +22,7 @@ class productSerializer(serializers.HyperlinkedModelSerializer):
     
     def get_fullname(self, obj):
         return f'ricardo'
-    
 
-class productNoteSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = ProductNote
-        fields = ['id', 'url', 'user', 'product', 'note']
-    
     
 class bagSerializer(serializers.HyperlinkedModelSerializer):    
     class Meta:
@@ -44,12 +43,14 @@ class searchSacoleirasSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class sacoleiraProductsSerializer(serializers.HyperlinkedModelSerializer):
+    productnote_set = productNoteSerializer(many=True, read_only=True)
+    
     class Meta:
         model = product
-        fields = ['id', 'sacoleira', 'image', 'description', 'name', 'value', 'size', 'quantity']
+        fields = ['id', 'sacoleira', 'productnote_set', 'image', 'description', 'name', 'value', 'size', 'quantity']
     
 
 class productDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = product
-        fields = ['id', 'image', 'description', 'name', 'value', 'size', 'quantity']
+        fields = ['id', 'url', 'image', 'description', 'name', 'value', 'size', 'quantity']
