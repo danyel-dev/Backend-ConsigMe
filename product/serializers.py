@@ -51,6 +51,8 @@ class sacoleiraProductsSerializer(serializers.HyperlinkedModelSerializer):
     
 
 class productDetailSerializer(serializers.HyperlinkedModelSerializer):
+    productnote_set = productNoteSerializer(many=True, read_only=True)
+    
     class Meta:
         model = product
-        fields = ['id', 'url', 'image', 'description', 'name', 'value', 'size', 'quantity']
+        fields = ['id', 'url', 'productnote_set', 'image', 'description', 'name', 'value', 'size', 'quantity']
