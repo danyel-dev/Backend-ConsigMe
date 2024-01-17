@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class profile(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   store_name = models.CharField(max_length=50)
   professional_email = models.EmailField()
   phone_number = models.CharField(max_length=16)

@@ -1,12 +1,28 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from product.models import bag
+from account.serializers import profileSerializer
 
 
 class userLogadoSerializer(serializers.HyperlinkedModelSerializer):
     fullname = serializers.SerializerMethodField()
-    sacoleira = serializers.SerializerMethodField()
+    sacoleira = serializers.SerializerMethodField()   
     
+    class Meta:
+        model = User
+        fields = ['url', 'sacoleira', 'id', 'fullname']
+
+
+    def get_fullname(self, obj):
+        return f'{obj.first_name} {obj.last_name}'
+    
+    def get_sacoleira(self, obj):
+        return f'{obj.profile.id}'
+
+
+class userLogadoProfileSerializer(serializers.HyperlinkedModelSerializer):
+    fullname = serializers.SerializerMethodField()
+    sacoleira = serializers.SerializerMethodField()   
     
     class Meta:
         model = User

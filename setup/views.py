@@ -1,12 +1,22 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions, authentication
-from .serializers import UserSerializer, GroupSerializer, userLogadoSerializer
+from .serializers import UserSerializer, GroupSerializer, userLogadoSerializer, userLogadoProfileSerializer
 from rest_framework import filters
 
 
 class userLogadoViewset(viewsets.ModelViewSet):
     serializer_class = userLogadoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return User.objects.filter(id=user.id)    
+    
+
+class userLogadoProfileViewset(viewsets.ModelViewSet):
+    serializer_class = userLogadoProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 

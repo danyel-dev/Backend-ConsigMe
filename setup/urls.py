@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from .views import UserViewSet, GroupViewSet, userLogadoViewset
+from .views import UserViewSet, GroupViewSet, userLogadoViewset, userLogadoProfileViewset
 from rest_framework.authtoken import views
 from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, productDetail, productNoteViewSet
 from account.views import profileViewset, sacoleirasViewset, profileDetail
@@ -14,6 +14,7 @@ router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'messages', messageViewSet)
 router.register(r'userLogado', userLogadoViewset, basename='userlogado')
+router.register(r'userLogadoProfile', userLogadoProfileViewset, basename='userlogadoprofile')
 router.register(r'bag', bagViewSet, basename='bag')
 router.register(r'products', productViewSet)
 router.register(r'productNote', productNoteViewSet)

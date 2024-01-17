@@ -50,9 +50,11 @@ class sacoleiraProductsSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'sacoleira', 'productnote_set', 'image', 'description', 'name', 'value', 'size', 'quantity']
     
 
+
 class productDetailSerializer(serializers.HyperlinkedModelSerializer):
     productnote_set = productNoteSerializer(many=True, read_only=True)
     
     class Meta:
         model = product
         fields = ['id', 'url', 'productnote_set', 'image', 'description', 'name', 'value', 'size', 'quantity']
+
