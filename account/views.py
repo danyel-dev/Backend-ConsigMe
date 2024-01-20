@@ -1,6 +1,15 @@
 from .models import profile
-from .serializers import profileSerializer, sacoleirasSerializer
+from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer
 from rest_framework import viewsets, permissions, authentication, filters, generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.models import User
+
+
+class haveProfile(viewsets.ModelViewSet):
+    serializer_class = profileVerifySerializer
+    queryset = User.objects.all()
 
 
 class profileDetail(generics.RetrieveAPIView):

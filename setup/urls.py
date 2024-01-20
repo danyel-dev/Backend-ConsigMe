@@ -4,7 +4,7 @@ from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, userLogadoViewset, userLogadoProfileViewset
 from rest_framework.authtoken import views
 from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, productDetail, productNoteViewSet
-from account.views import profileViewset, sacoleirasViewset, profileDetail
+from account.views import profileViewset, sacoleirasViewset, profileDetail, haveProfile
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -20,6 +20,7 @@ router.register(r'products', productViewSet)
 router.register(r'productNote', productNoteViewSet)
 router.register(r'profile', profileViewset, basename='profile')
 router.register(r'sacoleiras', sacoleirasViewset, basename='sacoleiras')
+router.register(r'profileverify', haveProfile, basename='profileverify')
 
 urlpatterns = [
     path('', include(router.urls)),

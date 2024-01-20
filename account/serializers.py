@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import profile
+from django.contrib.auth.models import User
 
 
 class profileSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,6 +19,19 @@ class profileSerializer(serializers.HyperlinkedModelSerializer):
     def get_address(self, obj):
         return f'{obj.city} {obj.state}, {obj.street} {obj.house_number} - {obj.district}, Cep {obj.cep}'
 
+
+class profileVerifySerializer(serializers.HyperlinkedModelSerializer):
+    HaveProfile = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = User
+        fields = ['HaveProfile']
+
+    
+    def get_HaveProfile(self, obj):
+        if(profile.objects.filter(user=obj).exists()):
+            return f"{profile.objects.filter(user=obj).first()}"
+        return False
 
 class sacoleirasSerializer(serializers.HyperlinkedModelSerializer):
     name = serializers.SerializerMethodField()
