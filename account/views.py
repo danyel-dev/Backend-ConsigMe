@@ -1,5 +1,5 @@
-from .models import profile
-from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer
+from .models import profile, reviews
+from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer
 from rest_framework import viewsets, permissions, authentication, filters, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,12 +9,24 @@ from django.contrib.auth.models import User
 
 class haveProfile(viewsets.ModelViewSet):
     serializer_class = profileVerifySerializer
-    queryset = User.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    def get_queryset(self):
+        user = self.request.user
+        return User.objects.filter(id=user.id) 
 
 
 class profileDetail(generics.RetrieveAPIView):
     serializer_class = profileSerializer
     queryset = profile.objects.all()
+
+
+class reviewsViewSet(viewsets.ModelViewSet):
+    serializer_class = reviewsSerializer
+    queryset = reviews.objects.all()  
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
 
 
 class profileViewset(viewsets.ModelViewSet):

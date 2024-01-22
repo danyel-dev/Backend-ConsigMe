@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import profile
+from .models import profile, reviews
 from django.contrib.auth.models import User
 
 
@@ -20,17 +20,23 @@ class profileSerializer(serializers.HyperlinkedModelSerializer):
         return f'{obj.city} {obj.state}, {obj.street} {obj.house_number} - {obj.district}, Cep {obj.cep}'
 
 
+class reviewsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = reviews
+        fields = '__all__'
+
+
 class profileVerifySerializer(serializers.HyperlinkedModelSerializer):
     HaveProfile = serializers.SerializerMethodField()
     
     class Meta:
         model = User
-        fields = ['HaveProfile']
+        fields = ['url', 'HaveProfile']
 
     
     def get_HaveProfile(self, obj):
         if(profile.objects.filter(user=obj).exists()):
-            return f"{profile.objects.filter(user=obj).first()}"
+            return True
         return False
 
 class sacoleirasSerializer(serializers.HyperlinkedModelSerializer):

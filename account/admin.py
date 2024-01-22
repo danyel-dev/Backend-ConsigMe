@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import profile
+from .models import profile, reviews
 
 
 class Profile(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class Profile(admin.ModelAdmin):
    
   
 admin.site.register(profile, Profile)
+admin.site.register(reviews)
