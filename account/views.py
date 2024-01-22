@@ -24,9 +24,12 @@ class profileDetail(generics.RetrieveAPIView):
 
 class reviewsViewSet(viewsets.ModelViewSet):
     serializer_class = reviewsSerializer
-    queryset = reviews.objects.all()  
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return reviews.objects.filter(user=user.id)
 
 
 class profileViewset(viewsets.ModelViewSet):
