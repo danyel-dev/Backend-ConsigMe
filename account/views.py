@@ -1,11 +1,23 @@
 from .models import profile, reviews
-from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer
+from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer, reviewsProfileMediaSerializer
 from rest_framework import viewsets, permissions, authentication, filters, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User      
 
+
+class reviewsProfileMedia(generics.ListAPIView):
+    serializer_class = reviewsProfileMediaSerializer
+    
+    def get_queryset(self):
+        return reviews.objects.filter(profile_id=self.kwargs["pk"])
+     
+
+class rankingProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = profileSerializer
+    queryset = profile.objects.all()
+    
 
 class haveProfile(viewsets.ModelViewSet):
     serializer_class = profileVerifySerializer

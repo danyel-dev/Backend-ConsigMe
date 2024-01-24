@@ -35,7 +35,6 @@ class UserViewSet(viewsets.ModelViewSet):
     search_fields = ['username']
 
 
-
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.

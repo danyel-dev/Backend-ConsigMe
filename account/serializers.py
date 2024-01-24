@@ -3,6 +3,20 @@ from .models import profile, reviews
 from django.contrib.auth.models import User
 
 
+class reviewsProfileMediaSerializer(serializers.HyperlinkedModelSerializer):
+    media = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = reviews
+        fields = ['media']
+        
+        
+    def get_media(self, obj):
+        soma_das_notas = sum(reviews.objects.filter(profile_id=7).values_list('note', flat=True))
+        qtd_notas = reviews.objects.filter(profile_id=7).count()
+        return round(soma_das_notas/qtd_notas, 2)
+        
+
 class profileSerializer(serializers.HyperlinkedModelSerializer):
     name = serializers.SerializerMethodField()
     address = serializers.SerializerMethodField()
@@ -23,6 +37,12 @@ class profileSerializer(serializers.HyperlinkedModelSerializer):
 class reviewsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = reviews
+        fields = '__all__'
+
+
+class rankingProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = profile
         fields = '__all__'
 
 
