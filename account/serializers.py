@@ -4,17 +4,21 @@ from django.contrib.auth.models import User
 
 
 class reviewsProfileMediaSerializer(serializers.HyperlinkedModelSerializer):
-    media = serializers.SerializerMethodField()
+    # media = serializers.SerializerMethodField()
     
     class Meta:
         model = reviews
-        fields = ['media']
+        fields = '__all__'
         
         
-    def get_media(self, obj):
-        soma_das_notas = sum(reviews.objects.filter(profile_id=7).values_list('note', flat=True))
-        qtd_notas = reviews.objects.filter(profile_id=7).count()
-        return round(soma_das_notas/qtd_notas, 2)
+    # def get_media(self, instace):
+    #     pk = self.context['view'].kwargs.get('pk') 
+    #     soma_das_notas = sum(reviews.objects.filter(profile=7).values_list('note', flat=True))
+    #     qtd_notas = reviews.objects.filter(profile=7).count()
+    #     print(qtd_notas)
+    #     if(qtd_notas == 0):
+    #         return 0
+    #     return round(soma_das_notas/qtd_notas, 2)
         
 
 class profileSerializer(serializers.HyperlinkedModelSerializer):
@@ -41,9 +45,16 @@ class reviewsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class rankingProfileSerializer(serializers.HyperlinkedModelSerializer):
+    media = serializers.SerializerMethodField()
+    
     class Meta:
         model = profile
-        fields = '__all__'
+        fields = ['id', 'url', 'user', 'media']
+
+    def get_media(self, instance):
+        soma_das_notas = sum(reviews.objects.filter(profile=instance.id).values_list('note', flat=True))
+        qtd_notas = reviews.objects.filter(profile=instance.id).count()
+        return round(soma_das_notas/qtd_notas, 2)
 
 
 class profileVerifySerializer(serializers.HyperlinkedModelSerializer):
@@ -58,6 +69,7 @@ class profileVerifySerializer(serializers.HyperlinkedModelSerializer):
         if(profile.objects.filter(user=obj).exists()):
             return True
         return False
+
 
 class sacoleirasSerializer(serializers.HyperlinkedModelSerializer):
     name = serializers.SerializerMethodField()
