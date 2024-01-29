@@ -45,13 +45,24 @@ class reviewsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class rankingProfileSerializer(serializers.HyperlinkedModelSerializer):
-    media = serializers.SerializerMethodField()
-    
+    avaliacao = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
+    address = serializers.SerializerMethodField()
+        
     class Meta:
         model = profile
-        fields = ['id', 'url', 'user', 'media']
+        fields = ['id', 'url', 'name', 'image', 'avaliacao', 'phone_number', 'address']
 
-    def get_media(self, instance):
+
+    def get_name(self, obj):
+        return f'{obj.user.first_name} {obj.user.last_name}'
+
+
+    def get_address(self, obj):
+        return f'{obj.street} {obj.house_number}, {obj.city} - {obj.state}'
+
+
+    def get_avaliacao(self, instance):
         soma_das_notas = sum(reviews.objects.filter(profile=instance.id).values_list('note', flat=True))
         qtd_notas = reviews.objects.filter(profile=instance.id).count()
         return round(soma_das_notas/qtd_notas, 2)
