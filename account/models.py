@@ -3,8 +3,30 @@ from django.db import models
 from datetime import datetime
 
 
+
+class lojista(models.Model):
+  name = models.CharField(max_length=50)
+  description = models.TextField()
+  proprietario = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+  email = models.EmailField()
+  phone_number = models.CharField(max_length=16)
+  image = models.ImageField(blank=True, null=True, upload_to=f'lojistasImages/{datetime.now().strftime("%d_%m_%Y")}')
+  cnpj = models.CharField(max_length=14)
+  cep = models.CharField(max_length=8)
+  state = models.CharField(max_length=20)
+  city = models.CharField(max_length=50)
+  district = models.CharField(max_length=50)
+  street = models.CharField(max_length=50)  
+  number = models.IntegerField()
+  complement = models.CharField(max_length=100, blank=True, null=True)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+    return self.name
+
+
 class profile(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   store_name = models.CharField(max_length=50)
   professional_email = models.EmailField()
   phone_number = models.CharField(max_length=16)
@@ -26,7 +48,7 @@ class profile(models.Model):
 
 
   def __str__(self):
-      return f'{self.user.first_name} {self.user.last_name}'
+    return f'{self.user.first_name} {self.user.last_name}'
 
 
 class reviews(models.Model):
@@ -38,4 +60,4 @@ class reviews(models.Model):
   updated_at = models.DateTimeField(auto_now=True)
   
   def __str__(self):
-      return f'{self.profile}'
+    return f'{self.profile}'

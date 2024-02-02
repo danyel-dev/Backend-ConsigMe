@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import profile, reviews
+from .models import profile, reviews, lojista
 from django.contrib.auth.models import User
+
+
+class lojistaSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = lojista
+        fields = '__all__'
 
 
 class reviewsProfileMediaSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,10 +1,15 @@
-from .models import profile, reviews
-from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer, reviewsProfileMediaSerializer, rankingProfileSerializer
+from .models import profile, reviews, lojista
+from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer, reviewsProfileMediaSerializer, rankingProfileSerializer, lojistaSerializer
 from rest_framework import viewsets, permissions, authentication, filters, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User      
+
+
+class lojistaViewSet(viewsets.ModelViewSet):
+    serializer_class = lojistaSerializer
+    queryset = lojista.objects.all()
 
 
 class reviewsProfileMedia(generics.ListAPIView):
