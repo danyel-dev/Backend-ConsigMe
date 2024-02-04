@@ -10,7 +10,7 @@ class lojista(models.Model):
   proprietario = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   email = models.EmailField()
   phone_number = models.CharField(max_length=16)
-  image = models.ImageField(blank=True, null=True, upload_to=f'lojistasImages/{datetime.now().strftime("%d_%m_%Y")}')
+  image = models.ImageField(upload_to=f'lojistasImages/{datetime.now().strftime("%d_%m_%Y")}')
   cnpj = models.CharField(max_length=14)
   cep = models.CharField(max_length=8)
   state = models.CharField(max_length=20)
@@ -18,7 +18,7 @@ class lojista(models.Model):
   district = models.CharField(max_length=50)
   street = models.CharField(max_length=50)  
   number = models.IntegerField()
-  complement = models.CharField(max_length=100, blank=True, null=True)
+  complement = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 

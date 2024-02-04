@@ -1,12 +1,15 @@
 from rest_framework import serializers
 from .models import profile, reviews, lojista
 from django.contrib.auth.models import User
+from drf_extra_fields.fields import Base64ImageField
 
 
 class lojistaSerializer(serializers.HyperlinkedModelSerializer):
+    image = Base64ImageField()
+    
     class Meta:
         model = lojista
-        fields = '__all__'
+        fields = ['id', 'url', 'name', 'description', 'proprietario', 'email', 'phone_number', 'image', 'cnpj', 'cep', 'state', 'city','district', 'street', 'number', 'complement']
 
 
 class reviewsProfileMediaSerializer(serializers.HyperlinkedModelSerializer):
