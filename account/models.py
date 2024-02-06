@@ -3,9 +3,16 @@ from django.db import models
 from datetime import datetime
 
 
+class category(models.Model):
+  name = models.CharField(max_length=50)
+
+  def __str__(self):
+    return self.name
+
 
 class lojista(models.Model):
   name = models.CharField(max_length=50)
+  categories = models.ManyToManyField(category, blank=True)
   description = models.TextField()
   proprietario = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   email = models.EmailField()

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import profile, reviews, lojista
+from .models import profile, reviews, lojista, category
 
 
 class Profile(admin.ModelAdmin):
@@ -11,3 +11,4 @@ class Profile(admin.ModelAdmin):
 admin.site.register(profile, Profile)
 admin.site.register(reviews)
 admin.site.register(lojista)
+admin.site.register(category)
