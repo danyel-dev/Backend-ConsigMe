@@ -10,7 +10,8 @@ from django.contrib.auth.models import User
 class lojistaViewSet(viewsets.ModelViewSet):
     serializer_class = lojistaSerializer
     queryset = lojista.objects.all()
-
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'state', 'city', 'district']
 
 class reviewsProfileMedia(generics.ListAPIView):
     serializer_class = reviewsProfileMediaSerializer
