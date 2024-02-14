@@ -4,7 +4,7 @@ from rest_framework import routers
 from .views import UserViewSet, GroupViewSet, userLogadoViewset, userLogadoProfileViewset
 from rest_framework.authtoken import views
 from product.views import productViewSet, messageViewSet, bagViewSet, sacoleiraProducts, productDetail, productNoteViewSet
-from account.views import profileViewset, sacoleirasViewset, profileDetail, haveProfile, reviewsViewSet, rankingProfileViewSet, reviewsProfileMedia, lojistaViewSet
+from account.views import profileViewset, sacoleirasViewset, profileDetail, haveProfile, reviewsViewSet, rankingProfileViewSet, reviewsProfileMedia, lojistaViewSet, lojistaDetailViewset
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,6 +32,8 @@ urlpatterns = [
     path('sacoleiras/<int:id>/products/<int:pk>', productDetail.as_view()),
     path('reviewsmedia/<int:pk>/', reviewsProfileMedia.as_view()),
     path('profileDetail/<int:pk>/', profileDetail.as_view()),
+    path('lojistaDetail/<int:pk>/', lojistaDetailViewset.as_view()),
     path('api-token-auth/', views.obtain_auth_token, name='api-tokn-auth'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

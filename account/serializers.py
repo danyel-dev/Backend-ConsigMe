@@ -12,6 +12,12 @@ class lojistaSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'url', 'name', 'description', 'proprietario', 'email', 'phone_number', 'image', 'cnpj', 'cep', 'state', 'city','district', 'street', 'number', 'complement']
 
 
+class lojistaDetailSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = lojista
+        fields = '__all__'
+
+
 class reviewsProfileMediaSerializer(serializers.HyperlinkedModelSerializer):
     # media = serializers.SerializerMethodField()
     
@@ -92,16 +98,16 @@ class profileVerifySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class sacoleirasSerializer(serializers.HyperlinkedModelSerializer):
-    name = serializers.SerializerMethodField()
+    # name = serializers.SerializerMethodField()
     address = serializers.SerializerMethodField()
     
     class Meta:
         model = profile
-        fields = ['id', 'image', 'name', 'address', 'bio', 'phone_number']
+        fields = ['id', 'url', 'image', 'address', 'bio', 'phone_number']
 
     
-    def get_name(self, obj):
-        return f'{obj.user.first_name} {obj.user.last_name}'
+    # def get_name(self, obj):
+    #     return f'{obj.user.first_name} {obj.user.last_name}'
 
 
     def get_address(self, obj):

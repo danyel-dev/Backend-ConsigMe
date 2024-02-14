@@ -1,5 +1,5 @@
 from .models import profile, reviews, lojista
-from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer, reviewsProfileMediaSerializer, rankingProfileSerializer, lojistaSerializer
+from .serializers import profileSerializer, sacoleirasSerializer, profileVerifySerializer, reviewsSerializer, reviewsProfileMediaSerializer, rankingProfileSerializer, lojistaSerializer, lojistaDetailSerializer
 from rest_framework import viewsets, permissions, authentication, filters, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,6 +12,14 @@ class lojistaViewSet(viewsets.ModelViewSet):
     queryset = lojista.objects.all()
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'state', 'city', 'district']
+
+
+class lojistaDetailViewset(generics.RetrieveAPIView):
+    serializer_class = lojistaDetailSerializer
+    
+    def get_queryset(self):
+        return lojista.objects.filter(id=self.kwargs['pk'])
+
 
 class reviewsProfileMedia(generics.ListAPIView):
     serializer_class = reviewsProfileMediaSerializer
