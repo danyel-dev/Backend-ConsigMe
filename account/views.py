@@ -11,7 +11,7 @@ class lojistaViewSet(viewsets.ModelViewSet):
     serializer_class = lojistaSerializer
     queryset = lojista.objects.all()
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'state', 'city', 'district']
+    search_fields = ['name', 'state', 'city', 'district', 'categories']
 
 
 class lojistaDetailViewset(generics.RetrieveAPIView):

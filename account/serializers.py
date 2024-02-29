@@ -3,19 +3,30 @@ from .models import profile, reviews, lojista
 from django.contrib.auth.models import User
 from drf_extra_fields.fields import Base64ImageField
 
+class CategorieSerializer(serializers.Serializer):
+    name = serializers.CharField()
+
 
 class lojistaSerializer(serializers.HyperlinkedModelSerializer):
     image = Base64ImageField()
+    categories = CategorieSerializer(many=True)
     
     class Meta:
         model = lojista
-        fields = ['id', 'url', 'name', 'description', 'proprietario', 'email', 'phone_number', 'image', 'cnpj', 'cep', 'state', 'city','district', 'street', 'number', 'complement']
+        fields = ['id', 'categories', 'url', 'name', 'description', 'proprietario', 'email', 'phone_number', 'image', 'cnpj', 'cep', 'state', 'city','district', 'street', 'number', 'complement']
 
 
 class lojistaDetailSerializer(serializers.HyperlinkedModelSerializer):
+    address = serializers.SerializerMethodField()
+    categories = CategorieSerializer(many=True)
+    
     class Meta:
         model = lojista
-        fields = '__all__'
+        fields = ['id', 'url', 'categories', 'name', 'description', 'proprietario', 'email', 'phone_number', 'image', 'cnpj', 'address', 'cep', 'state', 'city','district', 'street', 'number', 'complement']
+
+    
+    def get_address(self, obj):
+        return f"{obj.street}, {obj.number} - {obj.city}/{obj.state} cep: {obj.cep}"
 
 
 class reviewsProfileMediaSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
+from taggit.managers import TaggableManager
 
 
 class category(models.Model):
@@ -12,7 +13,7 @@ class category(models.Model):
 
 class lojista(models.Model):
   name = models.CharField(max_length=50)
-  categories = models.ManyToManyField(category, blank=True)
+  categories = TaggableManager()
   description = models.TextField()
   proprietario = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
   email = models.EmailField()
@@ -28,6 +29,10 @@ class lojista(models.Model):
   complement = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
+
+  @classmethod
+  def search_by_tag(cls, query):
+      return cls.objects.filter(categories__name__icontains=query)
 
   def __str__(self):
     return self.name
