@@ -71,3 +71,4 @@ class sacoleirasViewset(viewsets.ModelViewSet):
     queryset = profile.objects.all()
     filter_backends = [filters.SearchFilter]
     search_fields = ['user__first_name', 'user__last_name', 'state', 'city', 'district']
+    # search_fields = ['state', 'city', 'district']

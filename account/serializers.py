@@ -81,7 +81,7 @@ class rankingProfileSerializer(serializers.HyperlinkedModelSerializer):
 
 
     def get_name(self, obj):
-        return f'{obj.user.first_name} {obj.user.last_name}'
+        return f'{obj.user.first_name}'
 
 
     def get_address(self, obj):
@@ -109,16 +109,16 @@ class profileVerifySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class sacoleirasSerializer(serializers.HyperlinkedModelSerializer):
-    # name = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
     address = serializers.SerializerMethodField()
     
     class Meta:
         model = profile
-        fields = ['id', 'url', 'image', 'address', 'bio', 'phone_number']
+        fields = ['id', 'url', 'name', 'image', 'address', 'bio', 'phone_number']
 
     
-    # def get_name(self, obj):
-    #     return f'{obj.user.first_name} {obj.user.last_name}'
+    def get_name(self, obj):
+        return f'{obj.user.first_name}'
 
 
     def get_address(self, obj):
