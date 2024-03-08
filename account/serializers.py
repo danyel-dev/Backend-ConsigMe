@@ -118,7 +118,7 @@ class sacoleirasSerializer(serializers.HyperlinkedModelSerializer):
 
     
     def get_name(self, obj):
-        return f'{obj.user.first_name}'
+        return f'{obj.user.first_name} {obj.user.last_name}'
 
 
     def get_address(self, obj):
